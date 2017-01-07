@@ -42,6 +42,8 @@ class SignUp extends Component{
                         {this.renderErrorMessage()}
                     </div>
                     {cpassword.touched && cpassword.error && <div className="error">{cpassword.error}</div>}
+                    {password.touched && password.error && <div className="error">{password.error}</div>}
+                    {email.touched && email.error && <div className="error">{email.error}</div>}
                 </form>
             </div>
         );
@@ -55,11 +57,6 @@ function mapStateToProps(state) {
 function validate(formProps) {
     let error = {};
     const { email,password,cpassword } = formProps;
-    /*formProps.map(formProp => {
-        if(!formProp) {
-            error.formProp=`${formProp} is required`;
-        }
-    });*/
     if(!email) {
         error.email="email is required";
     }
