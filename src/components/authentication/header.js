@@ -1,12 +1,13 @@
 import React,{ Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
+import * as actions from '../../actions';
 class Header extends Component {
     renderButtons() {
         if(this.props.authenticated) {
             return [
                 <li key={5} className="nav-item">
-                    <Link className="nav-link" to="/signout"><h3>Singout</h3></Link>
+                    <a className="nav-link" onClick={this.signout.bind(this)}><h3>Signout</h3></a>
                 </li>,
                 <li key={4} className="nav-item">
                     <Link  className="nav-link" to="/feature"><h3>Feature</h3></Link>
@@ -23,6 +24,9 @@ class Header extends Component {
                 </li>
             ];
         }
+    }
+    signout(){
+        this.props.SignOutUser();
     }
     render() {
         return (
@@ -44,4 +48,4 @@ function mapStateToProps(state) {
         authenticated : state.auth.authenticate
     }
 }
-export default connect(mapStateToProps)(Header);
+export default connect(mapStateToProps,actions)(Header);
