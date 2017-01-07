@@ -22,9 +22,9 @@ ReactDOM.render(
     <Router history={browserHistory}>
       <Route path="/" component={App}>
       <Route path="/signin" component={SignIn} />
-      <Route path="/feature" component={RequireAuthentication(Feature)} />
       <Route path="/signup" component={SignUp}></Route>
       <Route path="/signout" component={SignOut}></Route>
+      <Route path="/feature" component={RequireAuthentication(Feature)} />
       </Route>
     </Router>
   </Provider>

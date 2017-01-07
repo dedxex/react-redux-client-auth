@@ -14,6 +14,7 @@ firebase.initializeApp(config);
 const ROOT_URL ="http://localhost:3000";
 export function SignInUser({ email,password }) {
     return function(dispatch) {
+        dispatch({ type : 'loading',payload : true });
         axios.post(`${ROOT_URL}/signin`,{ email:email,password: password})
         .then(response=> {
             //if request is good update the state
@@ -21,14 +22,17 @@ export function SignInUser({ email,password }) {
                 .then( () => {
                     console.log("firebase okay in signin");
                     dispatch({ type : 'Auth_User' });
+                    dispatch({ type : 'loading',payload : false });
                     localStorage.setItem('token',response.data.token);
                     browserHistory.push('/feature');
                 })
                 .catch((error) => {
+                    dispatch({ type : 'loading',payload : false });
                     return dispatch(authError("invalid credentials"));
                 });
         })
         .catch((error) => {
+        dispatch({ type : 'loading',payload : false });
         dispatch(authError("invalid credentials"));
 });
     }}
@@ -88,4 +92,17 @@ export function fetchMessage() {
                 });
             });
     }
+}
+//handling message for not auth and accessing feature
+export function youAreNotAuth() {
+    return {
+        type : 'AuthError',
+        payload : "You must Sign in to access"
+    };
+}
+export function clearMessage() {
+    return {
+        type : 'AuthError',
+        payload : ""
+    };
 }

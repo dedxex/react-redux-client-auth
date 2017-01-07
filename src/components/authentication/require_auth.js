@@ -3,6 +3,7 @@
  */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import * as actions from '../../actions';
 
 export default function(ComposedComponent) {
     class Authentication extends Component {
@@ -12,12 +13,14 @@ export default function(ComposedComponent) {
 
         componentWillMount() {
             if (!this.props.authenticated) {
+                this.props.youAreNotAuth();
                 this.context.router.push('/');
             }
         }
 
         componentWillUpdate(nextProps) {
             if (!nextProps.authenticated) {
+                this.props.youAreNotAuth();
                 this.context.router.push('/');
             }
         }
@@ -28,8 +31,8 @@ export default function(ComposedComponent) {
     }
 
     function mapStateToProps(state) {
-        return { authenticated: state.auth.authenticate };
+        return { authenticated: state.auth.authenticate,error : state.auth.error };
     }
 
-    return connect(mapStateToProps)(Authentication);
+    return connect(mapStateToProps,actions)(Authentication);
 }

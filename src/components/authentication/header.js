@@ -2,8 +2,10 @@ import React,{ Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import * as actions from '../../actions';
+import { Spinner } from '../common';
 class Header extends Component {
     renderButtons() {
+        console.log(this.props.errorcod);
         if(this.props.authenticated) {
             return [
                 <li key={5} className="nav-item">
@@ -25,27 +27,40 @@ class Header extends Component {
             ];
         }
     }
+    renderMessage() {
+        if(this.props.errorcod){
+            return (
+                <div className="alert alert-danger alert-dismissable">
+                    <a onClick={this.props.clearMessage} className="close" data-dismiss="alert" aria-label="close">×</a>
+                    <h4>{this.props.errorcod}</h4>
+                </div>
+            );
+        }
+    }
     signout(){
         this.props.SignOutUser();
     }
     render() {
         return (
-          <nav className="navbar navbar-light bg-faded">
-            <ul className="nav navbar-nav">
-              <li className="nav-item active">
-                  <Link to="/" className="nav-link">
-                      <h3>Home</h3>
-                  </Link>
-              </li>
-                {this.renderButtons()}
-            </ul>
-          </nav>
+          <div>
+              <nav className="navbar navbar-light bg-faded">
+                  <ul className="nav navbar-nav">
+                      <li className="nav-item active">
+                          <Link to="/" className="nav-link">
+                              <h3>Home</h3>
+                          </Link>
+                      </li>
+                      {this.renderButtons()}
+                  </ul>
+              </nav>
+              {this.renderMessage()}
+          </div>
         );
     }
 }
 function mapStateToProps(state) {
     return {
-        authenticated : state.auth.authenticate
+        authenticated : state.auth.authenticate,errorcod : state.auth.error
     }
 }
 export default connect(mapStateToProps,actions)(Header);
