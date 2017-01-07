@@ -2,6 +2,7 @@
  * Created by taranjeetsingh on 01-01-2017.
  */
 import React,{ Component } from 'react';
+import { Spinner } from '../common';
 import { reduxForm } from 'redux-form';
 import * as actions from '../../actions';
 
@@ -12,16 +13,10 @@ class SignUp extends Component{
     handleFormSubmit(formProps){
         this.props.SignUpUser(formProps);
     }
-    renderErrorMessage() {
-        if(this.props.errorMessage) {
-            return (
-                <div className="alert alert-danger">
-                    <strong>Oops{this.props.errorMessage}</strong>
-                </div>
-            );
+    renderContent() {
+        if(this.props.loading){
+            return (<Spinner></Spinner>);
         }
-    }
-    render() {
         const { handleSubmit,fields:{email,password,cpassword}}=this.props;
         return (
             <div className="col-xs-5">
@@ -38,9 +33,6 @@ class SignUp extends Component{
                     <div className="form-group">
                         <button className="btn btn-primary">SignUp</button>
                     </div>
-                    <div className="form-group">
-                        {this.renderErrorMessage()}
-                    </div>
                     {cpassword.touched && cpassword.error && <div className="error">{cpassword.error}</div>}
                     {password.touched && password.error && <div className="error">{password.error}</div>}
                     {email.touched && email.error && <div className="error">{email.error}</div>}
@@ -48,10 +40,17 @@ class SignUp extends Component{
             </div>
         );
     }
+    render() {
+        return (
+            <div>
+                {this.renderContent.bind(this)()}
+            </div>
+        );
+    }
 }
 function mapStateToProps(state) {
     return {
-        errorMessage : state.auth.error
+        loading : state.auth.loading
     };
 }
 function validate(formProps) {

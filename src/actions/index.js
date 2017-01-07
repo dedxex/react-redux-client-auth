@@ -44,6 +44,7 @@ export function authError(error) {
 }
 export function SignUpUser({email,password}) {
     return function(dispatch) {
+        dispatch({ type : 'loading',payload : true });
         axios.post(`${ROOT_URL}/signup`,{ email:email,password: password})
             .then(response=> {
                 firebase.auth().createUserWithEmailAndPassword(email, password)
@@ -51,16 +52,19 @@ export function SignUpUser({email,password}) {
                         //if request is good update the state
                         console.log("firebase okay in signup");
                         dispatch({ type : 'Auth_User' });
+                        dispatch({ type : 'loading',payload : false });
                         localStorage.setItem('token',response.data.token);
                         browserHistory.push('/');
                     })
                     .catch((error) => {
                         //if error
+                        dispatch({ type : 'loading',payload : false });
                         dispatch(authError("email is in use"));
                 });
 
             })
             .catch((error) => {
+                dispatch({ type : 'loading',payload : false });
                 dispatch(authError("email is in use"));
             });
     }
