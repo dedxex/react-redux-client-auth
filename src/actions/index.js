@@ -104,3 +104,18 @@ export function youAreNotAuth() {
         payload : "You must Sign in to access"
     };
 }
+export function fetchCollectionData(collection) {
+    return function(dispatch) {
+        dispatch({ type : 'DataLoading',payload : true });
+        axios.get(`${ROOT_URL}/api/0/10/${collection}-list`)
+            .then(response=> {
+                console.log(response.data);
+                dispatch({ type : 'Collection_Data',payload : response.data });
+                dispatch({ type : 'DataLoading',payload : false });
+            })
+            .catch((error) => {
+                dispatch({ type : 'DataLoading',payload : false });
+                console.log(error);
+            });
+    }
+}

@@ -5,6 +5,7 @@ import React,{ Component } from 'react';
 
 class SideBar extends Component {
     render() {
+        const { onClick } = this.props;
         return (
             <div>
                 <nav className="col-sm-3 col-md-2 hidden-xs-down bg-faded sidebar">
@@ -25,10 +26,10 @@ class SideBar extends Component {
 
                     <ul className="nav nav-pills flex-column">
                         <li className="nav-item">
-                            <a className="nav-link" href="http://v4-alpha.getbootstrap.com/examples/dashboard/#">Nav item</a>
+                            <a className="nav-link" onClick={() => onClick("exercise","Exercise")} href="#">Exercise</a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="http://v4-alpha.getbootstrap.com/examples/dashboard/#">Nav item again</a>
+                            <a className="nav-link" onClick={() => onClick("bmi","Bmi")} href="#">Bmi</a>
                         </li>
                         <li className="nav-item">
                             <a className="nav-link" href="http://v4-alpha.getbootstrap.com/examples/dashboard/#">One more nav</a>
