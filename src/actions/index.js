@@ -98,12 +98,6 @@ export function fetchMessage() {
     }
 }
 //handling message for not auth and accessing feature
-export function youAreNotAuth() {
-    return {
-        type : 'AuthError',
-        payload : "You must Sign in to access"
-    };
-}
 export function fetchCollectionData(collection) {
     return function(dispatch) {
         dispatch({ type : 'DataLoading',payload : true });

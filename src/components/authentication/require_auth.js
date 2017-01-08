@@ -13,14 +13,12 @@ export default function(ComposedComponent) {
 
         componentWillMount() {
             if (!this.props.authenticated) {
-                this.props.youAreNotAuth();
                 this.context.router.push('/');
             }
         }
 
         componentWillUpdate(nextProps) {
             if (!nextProps.authenticated) {
-                this.props.youAreNotAuth();
                 this.context.router.push('/');
             }
         }

@@ -5,7 +5,6 @@ import * as actions from '../../actions';
 import { Spinner } from '../common';
 class Header extends Component {
     renderButtons() {
-        console.log(this.props.errorcod);
         if(this.props.authenticated) {
             return [
                 <li key={5} className="nav-item">
