@@ -104,9 +104,3 @@ export function youAreNotAuth() {
         payload : "You must Sign in to access"
     };
 }
-export function clearMessage() {
-    return {
-        type : 'AuthError',
-        payload : ""
-    };
-}
