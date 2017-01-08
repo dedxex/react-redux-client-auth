@@ -1,5 +1,6 @@
 import React,{ Component } from 'react';
 import { connect } from 'react-redux';
+import SideBar from './SideBar';
 import * as actions from '../../actions';
 class Feature extends Component{
     componentWillMount() {
@@ -7,7 +8,12 @@ class Feature extends Component{
     }
     render() {
         return (
-            <div className="container">
+            <div>
+                <div className="container-fluid">
+                    <div className="row">
+                        <SideBar></SideBar>
+                    </div>
+                </div>
                 {this.props.message}
             </div>
         );

@@ -8,7 +8,7 @@ import App from './components/app';
 import SignIn from './components/authentication/signin';
 import SignUp from './components/authentication/signup';
 import SignOut from './components/authentication/signout';
-import Feature from './components/authentication/feature';
+import Feature from './components/dashboard/feature';
 import reducers from './reducers';
 import RequireAuthentication from './components/authentication/require_auth';
 const createStoreWithMiddleware = applyMiddleware(reduxThunk)(createStore);
